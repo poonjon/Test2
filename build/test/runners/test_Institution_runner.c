@@ -8,10 +8,13 @@
   Unity.NumberOfTests++; \
   if (TEST_PROTECT()) \
   { \
+    CEXCEPTION_T e; \
+    Try { \
       CMock_Init(); \
       setUp(); \
       TestFunc(); \
       CMock_Verify(); \
+    } Catch(e) { TEST_ASSERT_EQUAL_HEX32_MESSAGE(CEXCEPTION_NONE, e, "Unhandled Exception!"); } \
   } \
   CMock_Destroy(); \
   if (TEST_PROTECT() && !TEST_IS_IGNORED) \
@@ -26,6 +29,7 @@
 #include "cmock.h"
 #include <setjmp.h>
 #include <stdio.h>
+#include "CException.h"
 #include "mock_LinkedList.h"
 #include "mock_Stack.h"
 
@@ -36,6 +40,7 @@ char* GlobalOrderError;
 //=======External Functions This Runner Calls=====
 extern void setUp(void);
 extern void tearDown(void);
+extern void test_reverse_add_institution(void);
 
 
 //=======Mock Management=====
@@ -74,6 +79,7 @@ int main(void)
 {
   Unity.TestFile = "test_Institution.c";
   UnityBegin();
+  RUN_TEST(test_reverse_add_institution, 9);
 
   return (UnityEnd());
 }

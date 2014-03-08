@@ -1,8 +1,30 @@
 #include "unity.h"
-#include "Institution.h"
 #include "mock_LinkedList.h"
 #include "mock_Stack.h"
+#include "Institution.h"
 
 void tearDown(){}
 void setUp(){}
 
+void test_reverse_add_institution_for_3_elements(){
+	Institution institution[]={};
+	LinkedList inputList = {};
+	LinkedList outputList = {};
+	
+	List_removeHead_ExpectAndReturn(&inputList, &institution[0]);
+	Stack_push_Expect(&stack, &institution[0]);
+	List_removeHead_ExpectAndReturn(&inputList, &institution[1]);
+	Stack_push_Expect(&stack, &institution[1]);
+	List_removeHead_ExpectAndReturn(&inputList, &institution[2]);
+	Stack_push_Expect(&stack, &institution[2]);
+	List_removeHead_ExpectAndReturn(&inputList, NULL);
+	
+	Stack_pop_ExpectAndReturn(&stack, &institution[2]);
+	List_addTail_Expect(&outputList, &institution[2]);
+	Stack_pop_ExpectAndReturn(&stack, &institution[1]);
+	List_addTail_Expect(&outputList, &institution[1]);
+	Stack_pop_ExpectAndReturn(&stack, &institution[0]);
+	List_addTail_Expect(&outputList, &institution[0]);
+	
+	TEST_ASSERT_EQUAL(3, Institution_reverse(&inputList, &outputList) );
+}

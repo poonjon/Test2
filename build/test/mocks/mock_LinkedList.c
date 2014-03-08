@@ -12,14 +12,17 @@ typedef struct _CMOCK_List_addTail_CALL_INSTANCE
   int CallOrder;
   LinkedList* Expected_list;
   void* Expected_element;
+  CEXCEPTION_T ExceptionToThrow;
 
 } CMOCK_List_addTail_CALL_INSTANCE;
 
 typedef struct _CMOCK_List_removeHead_CALL_INSTANCE
 {
   UNITY_LINE_TYPE LineNumber;
+  void* ReturnVal;
   int CallOrder;
   LinkedList* Expected_list;
+  CEXCEPTION_T ExceptionToThrow;
 
 } CMOCK_List_removeHead_CALL_INSTANCE;
 
@@ -30,6 +33,7 @@ static struct mock_LinkedListInstance
   int List_addTail_CallbackCalls;
   CMOCK_MEM_INDEX_TYPE List_addTail_CallInstance;
   int List_removeHead_IgnoreBool;
+  void* List_removeHead_FinalReturn;
   CMOCK_List_removeHead_CALLBACK List_removeHead_CallbackFunctionPointer;
   int List_removeHead_CallbackCalls;
   CMOCK_MEM_INDEX_TYPE List_removeHead_CallInstance;
@@ -93,6 +97,10 @@ void List_addTail(LinkedList* list, void* element)
     UNITY_TEST_FAIL(cmock_line, "Function 'List_addTail' called later than expected.");
   UNITY_TEST_ASSERT_EQUAL_MEMORY((void*)(cmock_call_instance->Expected_list), (void*)(list), sizeof(LinkedList), cmock_line, "Function 'List_addTail' called with unexpected value for argument 'list'.");
   UNITY_TEST_ASSERT_EQUAL_PTR(cmock_call_instance->Expected_element, element, cmock_line, "Function 'List_addTail' called with unexpected value for argument 'element'.");
+  if (cmock_call_instance->ExceptionToThrow != CEXCEPTION_NONE)
+  {
+    Throw(cmock_call_instance->ExceptionToThrow);
+  }
 }
 
 void CMockExpectParameters_List_addTail(CMOCK_List_addTail_CALL_INSTANCE* cmock_call_instance, LinkedList* list, void* element)
@@ -114,6 +122,7 @@ void List_addTail_CMockExpect(UNITY_LINE_TYPE cmock_line, LinkedList* list, void
   Mock.List_addTail_CallInstance = CMock_Guts_MemChain(Mock.List_addTail_CallInstance, cmock_guts_index);
   cmock_call_instance->LineNumber = cmock_line;
   cmock_call_instance->CallOrder = ++GlobalExpectCount;
+  cmock_call_instance->ExceptionToThrow = CEXCEPTION_NONE;
   CMockExpectParameters_List_addTail(cmock_call_instance, list, element);
 }
 
@@ -122,19 +131,34 @@ void List_addTail_StubWithCallback(CMOCK_List_addTail_CALLBACK Callback)
   Mock.List_addTail_CallbackFunctionPointer = Callback;
 }
 
-void List_removeHead(LinkedList* list)
+void List_addTail_CMockExpectAndThrow(UNITY_LINE_TYPE cmock_line, LinkedList* list, void* element, CEXCEPTION_T cmock_to_throw)
+{
+  CMOCK_MEM_INDEX_TYPE cmock_guts_index = CMock_Guts_MemNew(sizeof(CMOCK_List_addTail_CALL_INSTANCE));
+  CMOCK_List_addTail_CALL_INSTANCE* cmock_call_instance = (CMOCK_List_addTail_CALL_INSTANCE*)CMock_Guts_GetAddressFor(cmock_guts_index);
+  UNITY_TEST_ASSERT_NOT_NULL(cmock_call_instance, cmock_line, "CMock has run out of memory. Please allocate more.");
+  Mock.List_addTail_CallInstance = CMock_Guts_MemChain(Mock.List_addTail_CallInstance, cmock_guts_index);
+  cmock_call_instance->LineNumber = cmock_line;
+  cmock_call_instance->CallOrder = ++GlobalExpectCount;
+  cmock_call_instance->ExceptionToThrow = CEXCEPTION_NONE;
+  CMockExpectParameters_List_addTail(cmock_call_instance, list, element);
+  cmock_call_instance->ExceptionToThrow = cmock_to_throw;
+}
+
+void* List_removeHead(LinkedList* list)
 {
   UNITY_LINE_TYPE cmock_line = TEST_LINE_NUM;
   CMOCK_List_removeHead_CALL_INSTANCE* cmock_call_instance = (CMOCK_List_removeHead_CALL_INSTANCE*)CMock_Guts_GetAddressFor(Mock.List_removeHead_CallInstance);
   Mock.List_removeHead_CallInstance = CMock_Guts_MemNext(Mock.List_removeHead_CallInstance);
   if (Mock.List_removeHead_IgnoreBool)
   {
-    return;
+    if (cmock_call_instance == NULL)
+      return Mock.List_removeHead_FinalReturn;
+    Mock.List_removeHead_FinalReturn = cmock_call_instance->ReturnVal;
+    return cmock_call_instance->ReturnVal;
   }
   if (Mock.List_removeHead_CallbackFunctionPointer != NULL)
   {
-    Mock.List_removeHead_CallbackFunctionPointer(list, Mock.List_removeHead_CallbackCalls++);
-    return;
+    return Mock.List_removeHead_CallbackFunctionPointer(list, Mock.List_removeHead_CallbackCalls++);
   }
   UNITY_TEST_ASSERT_NOT_NULL(cmock_call_instance, cmock_line, "Function 'List_removeHead' called more times than expected.");
   cmock_line = cmock_call_instance->LineNumber;
@@ -143,6 +167,11 @@ void List_removeHead(LinkedList* list)
   if (cmock_call_instance->CallOrder < GlobalVerifyOrder)
     UNITY_TEST_FAIL(cmock_line, "Function 'List_removeHead' called later than expected.");
   UNITY_TEST_ASSERT_EQUAL_MEMORY((void*)(cmock_call_instance->Expected_list), (void*)(list), sizeof(LinkedList), cmock_line, "Function 'List_removeHead' called with unexpected value for argument 'list'.");
+  if (cmock_call_instance->ExceptionToThrow != CEXCEPTION_NONE)
+  {
+    Throw(cmock_call_instance->ExceptionToThrow);
+  }
+  return cmock_call_instance->ReturnVal;
 }
 
 void CMockExpectParameters_List_removeHead(CMOCK_List_removeHead_CALL_INSTANCE* cmock_call_instance, LinkedList* list)
@@ -150,12 +179,19 @@ void CMockExpectParameters_List_removeHead(CMOCK_List_removeHead_CALL_INSTANCE* 
   cmock_call_instance->Expected_list = list;
 }
 
-void List_removeHead_CMockIgnore(void)
+void List_removeHead_CMockIgnoreAndReturn(UNITY_LINE_TYPE cmock_line, void* cmock_to_return)
 {
+  CMOCK_MEM_INDEX_TYPE cmock_guts_index = CMock_Guts_MemNew(sizeof(CMOCK_List_removeHead_CALL_INSTANCE));
+  CMOCK_List_removeHead_CALL_INSTANCE* cmock_call_instance = (CMOCK_List_removeHead_CALL_INSTANCE*)CMock_Guts_GetAddressFor(cmock_guts_index);
+  UNITY_TEST_ASSERT_NOT_NULL(cmock_call_instance, cmock_line, "CMock has run out of memory. Please allocate more.");
+  Mock.List_removeHead_CallInstance = CMock_Guts_MemChain(Mock.List_removeHead_CallInstance, cmock_guts_index);
+  cmock_call_instance->LineNumber = cmock_line;
+  cmock_call_instance->ExceptionToThrow = CEXCEPTION_NONE;
+  cmock_call_instance->ReturnVal = cmock_to_return;
   Mock.List_removeHead_IgnoreBool = (int)1;
 }
 
-void List_removeHead_CMockExpect(UNITY_LINE_TYPE cmock_line, LinkedList* list)
+void List_removeHead_CMockExpectAndReturn(UNITY_LINE_TYPE cmock_line, LinkedList* list, void* cmock_to_return)
 {
   CMOCK_MEM_INDEX_TYPE cmock_guts_index = CMock_Guts_MemNew(sizeof(CMOCK_List_removeHead_CALL_INSTANCE));
   CMOCK_List_removeHead_CALL_INSTANCE* cmock_call_instance = (CMOCK_List_removeHead_CALL_INSTANCE*)CMock_Guts_GetAddressFor(cmock_guts_index);
@@ -163,11 +199,26 @@ void List_removeHead_CMockExpect(UNITY_LINE_TYPE cmock_line, LinkedList* list)
   Mock.List_removeHead_CallInstance = CMock_Guts_MemChain(Mock.List_removeHead_CallInstance, cmock_guts_index);
   cmock_call_instance->LineNumber = cmock_line;
   cmock_call_instance->CallOrder = ++GlobalExpectCount;
+  cmock_call_instance->ExceptionToThrow = CEXCEPTION_NONE;
   CMockExpectParameters_List_removeHead(cmock_call_instance, list);
+  cmock_call_instance->ReturnVal = cmock_to_return;
 }
 
 void List_removeHead_StubWithCallback(CMOCK_List_removeHead_CALLBACK Callback)
 {
   Mock.List_removeHead_CallbackFunctionPointer = Callback;
+}
+
+void List_removeHead_CMockExpectAndThrow(UNITY_LINE_TYPE cmock_line, LinkedList* list, CEXCEPTION_T cmock_to_throw)
+{
+  CMOCK_MEM_INDEX_TYPE cmock_guts_index = CMock_Guts_MemNew(sizeof(CMOCK_List_removeHead_CALL_INSTANCE));
+  CMOCK_List_removeHead_CALL_INSTANCE* cmock_call_instance = (CMOCK_List_removeHead_CALL_INSTANCE*)CMock_Guts_GetAddressFor(cmock_guts_index);
+  UNITY_TEST_ASSERT_NOT_NULL(cmock_call_instance, cmock_line, "CMock has run out of memory. Please allocate more.");
+  Mock.List_removeHead_CallInstance = CMock_Guts_MemChain(Mock.List_removeHead_CallInstance, cmock_guts_index);
+  cmock_call_instance->LineNumber = cmock_line;
+  cmock_call_instance->CallOrder = ++GlobalExpectCount;
+  cmock_call_instance->ExceptionToThrow = CEXCEPTION_NONE;
+  CMockExpectParameters_List_removeHead(cmock_call_instance, list);
+  cmock_call_instance->ExceptionToThrow = cmock_to_throw;
 }
 

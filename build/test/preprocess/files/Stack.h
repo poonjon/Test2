@@ -6,9 +6,7 @@
 
 typedef struct Stack_t{
 
- void *head;
-
- void *tail;
+ void *topOfStack;
 
 }Stack;
 

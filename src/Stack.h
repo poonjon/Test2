@@ -2,8 +2,7 @@
 #define __STACK_H__
 
 typedef struct Stack_t{
-	void *head;
-	void *tail;
+	void *topOfStack;
 }Stack;
 
 void Stack_push(Stack *stack, void *element);
