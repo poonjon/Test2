@@ -40,14 +40,17 @@ char* GlobalOrderError;
 //=======External Functions This Runner Calls=====
 extern void setUp(void);
 extern void tearDown(void);
+extern void test_reverse_add_institution_for_2_elements(void);
 extern void test_reverse_add_institution_for_3_elements(void);
+extern void test_reverse_add_institution_for_4_elements(void);
 extern void test_select_institute(void);
 extern void test_institution_select_1_reverse_3_elements(void);
 extern void test_institution_select_2_elements_reverse_4_elements(void);
 extern void test_year_of_establishment(void);
 extern void test_institution_select_year_select_1_reverse_3_elements(void);
 extern void test_institution_select_year_select_2_reverse_3_elements(void);
-extern void test_institution_select_year_select_1_reverse_3_elements_with_exception(void);
+extern void test_institution_select_year_throws_exception_on_first_element(void);
+extern void test_institution_select_year_throws_exception_on_second_element(void);
 
 
 //=======Mock Management=====
@@ -86,14 +89,17 @@ int main(void)
 {
   Unity.TestFile = "test_Institution.c";
   UnityBegin();
-  RUN_TEST(test_reverse_add_institution_for_3_elements, 10);
-  RUN_TEST(test_select_institute, 33);
-  RUN_TEST(test_institution_select_1_reverse_3_elements, 41);
-  RUN_TEST(test_institution_select_2_elements_reverse_4_elements, 66);
-  RUN_TEST(test_year_of_establishment, 95);
-  RUN_TEST(test_institution_select_year_select_1_reverse_3_elements, 106);
-  RUN_TEST(test_institution_select_year_select_2_reverse_3_elements, 129);
-  RUN_TEST(test_institution_select_year_select_1_reverse_3_elements_with_exception, 155);
+  RUN_TEST(test_reverse_add_institution_for_2_elements, 10);
+  RUN_TEST(test_reverse_add_institution_for_3_elements, 29);
+  RUN_TEST(test_reverse_add_institution_for_4_elements, 52);
+  RUN_TEST(test_select_institute, 79);
+  RUN_TEST(test_institution_select_1_reverse_3_elements, 87);
+  RUN_TEST(test_institution_select_2_elements_reverse_4_elements, 112);
+  RUN_TEST(test_year_of_establishment, 141);
+  RUN_TEST(test_institution_select_year_select_1_reverse_3_elements, 152);
+  RUN_TEST(test_institution_select_year_select_2_reverse_3_elements, 175);
+  RUN_TEST(test_institution_select_year_throws_exception_on_first_element, 201);
+  RUN_TEST(test_institution_select_year_throws_exception_on_second_element, 222);
 
   return (UnityEnd());
 }

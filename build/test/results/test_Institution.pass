@@ -3,35 +3,44 @@
   :path: test
   :file: test_Institution.c
 :successes:
-- :test: test_reverse_add_institution_for_3_elements
+- :test: test_reverse_add_institution_for_2_elements
   :line: 10
   :message: ''
+- :test: test_reverse_add_institution_for_3_elements
+  :line: 29
+  :message: ''
+- :test: test_reverse_add_institution_for_4_elements
+  :line: 52
+  :message: ''
 - :test: test_select_institute
-  :line: 33
+  :line: 79
   :message: ''
 - :test: test_institution_select_1_reverse_3_elements
-  :line: 41
+  :line: 87
   :message: ''
 - :test: test_institution_select_2_elements_reverse_4_elements
-  :line: 66
+  :line: 112
   :message: ''
 - :test: test_year_of_establishment
-  :line: 95
+  :line: 141
   :message: ''
 - :test: test_institution_select_year_select_1_reverse_3_elements
-  :line: 106
+  :line: 152
   :message: ''
 - :test: test_institution_select_year_select_2_reverse_3_elements
-  :line: 129
+  :line: 175
   :message: ''
-- :test: test_institution_select_year_select_1_reverse_3_elements_with_exception
-  :line: 155
+- :test: test_institution_select_year_throws_exception_on_first_element
+  :line: 201
+  :message: ''
+- :test: test_institution_select_year_throws_exception_on_second_element
+  :line: 222
   :message: ''
 :failures: []
 :ignores: []
 :counts:
-  :total: 8
-  :passed: 8
+  :total: 11
+  :passed: 11
   :failed: 0
   :ignored: 0
 :stdout:
@@ -42,3 +51,6 @@
 - Institute 0 not match
 - Institute 2 not match
 - Institute 0 not match
+- Error, year more than 2014
+- Institute 0 not match
+- Error, year more than 2014
