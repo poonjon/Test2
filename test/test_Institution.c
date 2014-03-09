@@ -126,3 +126,28 @@ void test_institution_select_year_select_1_reverse_3_elements(){
 	
 }
 
+void test_institution_select_year_select_2_reverse_3_elements(){
+	Institution institution[]={ {.YearEstablished = 1920, .type = UniversityCollege},
+								{.YearEstablished = 1980, .type = UniversityCollege},
+								{.YearEstablished = 1980, .type = UniversityCollege}};
+	
+	int criterion = 1980;
+	LinkedList inputList = {};
+	LinkedList outputList = {};
+	int (*compare)(void *, void*);
+	
+	List_removeHead_ExpectAndReturn(&inputList, &institution[0]);
+	List_removeHead_ExpectAndReturn(&inputList, &institution[1]);
+	Stack_push_Expect(&stack, &institution[1]);
+	List_removeHead_ExpectAndReturn(&inputList, &institution[2]);
+	Stack_push_Expect(&stack, &institution[2]);
+	List_removeHead_ExpectAndReturn(&inputList, NULL);
+	
+	Stack_pop_ExpectAndReturn(&stack, &institution[2]);
+	List_addTail_Expect(&outputList, &institution[2]);
+		Stack_pop_ExpectAndReturn(&stack, &institution[1]);
+	List_addTail_Expect(&outputList, &institution[1]);
+	
+	TEST_ASSERT_EQUAL(3,Institution_select(&inputList, &outputList, &criterion, wasEstablishedBefore));
+	
+}

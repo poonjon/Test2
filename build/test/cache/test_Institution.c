@@ -199,3 +199,103 @@ void test_year_of_establishment(){
 
 
 }
+
+
+
+void test_institution_select_year_select_1_reverse_3_elements(){
+
+ Institution institution[]={ {.YearEstablished = 1920, .type = UniversityCollege},
+
+        {.YearEstablished = 1980, .type = UniversityCollege},
+
+        {.YearEstablished = 1990, .type = UniversityCollege}};
+
+
+
+ int criterion = 1980;
+
+ LinkedList inputList = {};
+
+ LinkedList outputList = {};
+
+ int (*compare)(void *, void*);
+
+
+
+ List_removeHead_CMockExpectAndReturn(115, &inputList, &institution[0]);
+
+ List_removeHead_CMockExpectAndReturn(116, &inputList, &institution[1]);
+
+ Stack_push_CMockExpect(117, &stack, &institution[1]);
+
+ List_removeHead_CMockExpectAndReturn(118, &inputList, &institution[2]);
+
+ List_removeHead_CMockExpectAndReturn(119, &inputList, ((void *)0));
+
+
+
+ Stack_pop_CMockExpectAndReturn(121, &stack, &institution[1]);
+
+ List_addTail_CMockExpect(122, &outputList, &institution[1]);
+
+
+
+
+
+ UnityAssertEqualNumber((_U_SINT)((3)), (_U_SINT)((Institution_select(&inputList, &outputList, &criterion, wasEstablishedBefore))), (((void *)0)), (_U_UINT)125, UNITY_DISPLAY_STYLE_INT);
+
+
+
+}
+
+
+
+void test_institution_select_year_select_2_reverse_3_elements(){
+
+ Institution institution[]={ {.YearEstablished = 1920, .type = UniversityCollege},
+
+        {.YearEstablished = 1980, .type = UniversityCollege},
+
+        {.YearEstablished = 1980, .type = UniversityCollege}};
+
+
+
+ int criterion = 1980;
+
+ LinkedList inputList = {};
+
+ LinkedList outputList = {};
+
+ int (*compare)(void *, void*);
+
+
+
+ List_removeHead_CMockExpectAndReturn(139, &inputList, &institution[0]);
+
+ List_removeHead_CMockExpectAndReturn(140, &inputList, &institution[1]);
+
+ Stack_push_CMockExpect(141, &stack, &institution[1]);
+
+ List_removeHead_CMockExpectAndReturn(142, &inputList, &institution[2]);
+
+ Stack_push_CMockExpect(143, &stack, &institution[2]);
+
+ List_removeHead_CMockExpectAndReturn(144, &inputList, ((void *)0));
+
+
+
+ Stack_pop_CMockExpectAndReturn(146, &stack, &institution[2]);
+
+ List_addTail_CMockExpect(147, &outputList, &institution[2]);
+
+  Stack_pop_CMockExpectAndReturn(148, &stack, &institution[1]);
+
+ List_addTail_CMockExpect(149, &outputList, &institution[1]);
+
+
+
+ UnityAssertEqualNumber((_U_SINT)((3)), (_U_SINT)((Institution_select(&inputList, &outputList, &criterion, wasEstablishedBefore))), (((void *)0)), (_U_UINT)151, UNITY_DISPLAY_STYLE_INT);
+
+
+
+}

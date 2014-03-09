@@ -45,6 +45,8 @@ extern void test_select_institute(void);
 extern void test_institution_select_1_reverse_3_elements(void);
 extern void test_institution_select_2_elements_reverse_4_elements(void);
 extern void test_year_of_establishment(void);
+extern void test_institution_select_year_select_1_reverse_3_elements(void);
+extern void test_institution_select_year_select_2_reverse_3_elements(void);
 
 
 //=======Mock Management=====
@@ -88,6 +90,8 @@ int main(void)
   RUN_TEST(test_institution_select_1_reverse_3_elements, 40);
   RUN_TEST(test_institution_select_2_elements_reverse_4_elements, 65);
   RUN_TEST(test_year_of_establishment, 94);
+  RUN_TEST(test_institution_select_year_select_1_reverse_3_elements, 105);
+  RUN_TEST(test_institution_select_year_select_2_reverse_3_elements, 129);
 
   return (UnityEnd());
 }

@@ -18,11 +18,17 @@
 - :test: test_year_of_establishment
   :line: 94
   :message: ''
+- :test: test_institution_select_year_select_1_reverse_3_elements
+  :line: 105
+  :message: ''
+- :test: test_institution_select_year_select_2_reverse_3_elements
+  :line: 129
+  :message: ''
 :failures: []
 :ignores: []
 :counts:
-  :total: 5
-  :passed: 5
+  :total: 7
+  :passed: 7
   :failed: 0
   :ignored: 0
 :stdout:
@@ -30,3 +36,6 @@
 - Institute 1 not match
 - Institute 0 not match
 - Institute 3 not match
+- Institute 0 not match
+- Institute 2 not match
+- Institute 0 not match
