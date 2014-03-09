@@ -40,7 +40,9 @@ char* GlobalOrderError;
 //=======External Functions This Runner Calls=====
 extern void setUp(void);
 extern void tearDown(void);
-extern void test_reverse_add_institution(void);
+extern void test_reverse_add_institution_for_3_elements(void);
+extern void test_select_institute(void);
+extern void test_institution_select_3(void);
 
 
 //=======Mock Management=====
@@ -79,7 +81,9 @@ int main(void)
 {
   Unity.TestFile = "test_Institution.c";
   UnityBegin();
-  RUN_TEST(test_reverse_add_institution, 9);
+  RUN_TEST(test_reverse_add_institution_for_3_elements, 9);
+  RUN_TEST(test_select_institute, 33);
+  RUN_TEST(test_institution_select_3, 41);
 
   return (UnityEnd());
 }

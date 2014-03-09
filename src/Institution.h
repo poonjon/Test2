@@ -3,7 +3,7 @@
 
 extern Stack stack; 
 
-typedef enum{Unknown, University, UniversityCollege, college}InstitutionType;
+typedef enum{Unknown, University, UniversityCollege, College}InstitutionType;
 
 typedef struct Institution_t{
 	char *name;
@@ -16,5 +16,12 @@ typedef struct Institution_t{
 }Institution;
 
 int Institution_reverse(LinkedList *inputList, LinkedList *outputList);
+int isUniversityCollege(void *elem1, void *type);
 
+int Institution_select( LinkedList *inputList, 
+						LinkedList *outputList,
+						void *criterion,
+						int (*compare)(void*, void *));
+
+						
 #endif

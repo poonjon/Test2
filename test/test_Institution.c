@@ -28,3 +28,37 @@ void test_reverse_add_institution_for_3_elements(){
 	
 	TEST_ASSERT_EQUAL(3, Institution_reverse(&inputList, &outputList) );
 }
+
+
+void test_select_institute(){
+	InstitutionType instiType = {UniversityCollege};
+	Institution institution = {.type=UniversityCollege};
+	
+	TEST_ASSERT_EQUAL(1, isUniversityCollege(&institution, &instiType) );
+
+}
+
+void test_institution_select_3(){
+	Institution institution[]={ {.type = Unknown},
+								{.type = University},
+								{.type = UniversityCollege},
+								{.type = College}};
+	InstitutionType criterion = {UniversityCollege};
+	
+	LinkedList inputList = {};
+	LinkedList outputList = {};
+	int (*compare)(void *, void*);
+	
+	List_removeHead_ExpectAndReturn(&inputList, &institution[0]);
+	List_removeHead_ExpectAndReturn(&inputList, &institution[1]);
+	List_removeHead_ExpectAndReturn(&inputList, &institution[2]);
+	Stack_push_Expect(&stack, &institution[2]);
+	List_removeHead_ExpectAndReturn(&inputList, NULL);
+	
+	Stack_pop_ExpectAndReturn(&stack, &institution[2]);
+	List_addTail_Expect(&outputList, &institution[2]);
+	
+	
+	TEST_ASSERT_EQUAL(1,Institution_select(&inputList, &outputList, &criterion, isUniversityCollege));
+	
+}
