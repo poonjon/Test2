@@ -34,6 +34,11 @@ int Institution_select( LinkedList *inputList,
 	Institution *institution;
 	int count, i=0;
 	
+	/*
+	** count: To count amount of elements reversed
+	** i	: To keep track of the number of elements pushed
+	*/
+	
 	institution = List_removeHead(inputList);
 	
 	for(count = 0 ; institution != NULL ; count++){

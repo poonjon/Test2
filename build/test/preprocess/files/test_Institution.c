@@ -74,7 +74,7 @@ void test_select_institute(){
 
 
 
-void test_institution_select_3(){
+void test_institution_select_1_reverse_3_elements(){
 
  Institution institution[]={ {.type = Unknown},
 
@@ -116,7 +116,63 @@ void test_institution_select_3(){
 
 
 
- UnityAssertEqualNumber((_U_SINT)((2)), (_U_SINT)((Institution_select(&inputList, &outputList, &criterion, isUniversityCollege))), (((void *)0)), (_U_UINT)62, UNITY_DISPLAY_STYLE_INT);
+ UnityAssertEqualNumber((_U_SINT)((3)), (_U_SINT)((Institution_select(&inputList, &outputList, &criterion, isUniversityCollege))), (((void *)0)), (_U_UINT)62, UNITY_DISPLAY_STYLE_INT);
+
+
+
+}
+
+
+
+void test_institution_select_2_elements_reverse_4_elements(){
+
+ Institution institution[]={ {.type = Unknown},
+
+        {.type = UniversityCollege},
+
+        {.type = UniversityCollege},
+
+        {.type = College}};
+
+
+
+ InstitutionType criterion = {UniversityCollege};
+
+ LinkedList inputList = {};
+
+ LinkedList outputList = {};
+
+ int (*compare)(void *, void*);
+
+
+
+ List_removeHead_CMockExpectAndReturn(77, &inputList, &institution[0]);
+
+ List_removeHead_CMockExpectAndReturn(78, &inputList, &institution[1]);
+
+ Stack_push_CMockExpect(79, &stack, &institution[1]);
+
+ List_removeHead_CMockExpectAndReturn(80, &inputList, &institution[2]);
+
+ Stack_push_CMockExpect(81, &stack, &institution[2]);
+
+ List_removeHead_CMockExpectAndReturn(82, &inputList, &institution[3]);
+
+ List_removeHead_CMockExpectAndReturn(83, &inputList, ((void *)0));
+
+
+
+ Stack_pop_CMockExpectAndReturn(85, &stack, &institution[2]);
+
+ List_addTail_CMockExpect(86, &outputList, &institution[2]);
+
+ Stack_pop_CMockExpectAndReturn(87, &stack, &institution[1]);
+
+ List_addTail_CMockExpect(88, &outputList, &institution[1]);
+
+
+
+ UnityAssertEqualNumber((_U_SINT)((4)), (_U_SINT)((Institution_select(&inputList, &outputList, &criterion, isUniversityCollege))), (((void *)0)), (_U_UINT)90, UNITY_DISPLAY_STYLE_INT);
 
 
 

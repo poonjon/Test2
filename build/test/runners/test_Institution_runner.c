@@ -42,7 +42,8 @@ extern void setUp(void);
 extern void tearDown(void);
 extern void test_reverse_add_institution_for_3_elements(void);
 extern void test_select_institute(void);
-extern void test_institution_select_3(void);
+extern void test_institution_select_1_reverse_3_elements(void);
+extern void test_institution_select_2_elements_reverse_4_elements(void);
 
 
 //=======Mock Management=====
@@ -83,7 +84,8 @@ int main(void)
   UnityBegin();
   RUN_TEST(test_reverse_add_institution_for_3_elements, 9);
   RUN_TEST(test_select_institute, 33);
-  RUN_TEST(test_institution_select_3, 41);
+  RUN_TEST(test_institution_select_1_reverse_3_elements, 41);
+  RUN_TEST(test_institution_select_2_elements_reverse_4_elements, 66);
 
   return (UnityEnd());
 }

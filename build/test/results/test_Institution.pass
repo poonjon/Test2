@@ -9,16 +9,21 @@
 - :test: test_select_institute
   :line: 33
   :message: ''
-:failures:
-- :test: test_institution_select_3
-  :line: 62
-  :message: Expected 2 Was 3
+- :test: test_institution_select_1_reverse_3_elements
+  :line: 41
+  :message: ''
+- :test: test_institution_select_2_elements_reverse_4_elements
+  :line: 66
+  :message: ''
+:failures: []
 :ignores: []
 :counts:
-  :total: 3
-  :passed: 2
-  :failed: 1
+  :total: 4
+  :passed: 4
+  :failed: 0
   :ignored: 0
 :stdout:
 - Institute 0 not match
 - Institute 1 not match
+- Institute 0 not match
+- Institute 3 not match
