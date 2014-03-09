@@ -84,9 +84,9 @@ void test_institution_select_3(){
 
         {.type = College}};
 
+
+
  InstitutionType criterion = {UniversityCollege};
-
-
 
  LinkedList inputList = {};
 
@@ -116,7 +116,7 @@ void test_institution_select_3(){
 
 
 
- UnityAssertEqualNumber((_U_SINT)((1)), (_U_SINT)((Institution_select(&inputList, &outputList, &criterion, isUniversityCollege))), (((void *)0)), (_U_UINT)62, UNITY_DISPLAY_STYLE_INT);
+ UnityAssertEqualNumber((_U_SINT)((2)), (_U_SINT)((Institution_select(&inputList, &outputList, &criterion, isUniversityCollege))), (((void *)0)), (_U_UINT)62, UNITY_DISPLAY_STYLE_INT);
 
 
 

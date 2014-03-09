@@ -38,13 +38,13 @@ void test_select_institute(){
 
 }
 
-void test_institution_select_3(){
+void test_institution_select_reverse_3_elements(){
 	Institution institution[]={ {.type = Unknown},
 								{.type = University},
 								{.type = UniversityCollege},
 								{.type = College}};
-	InstitutionType criterion = {UniversityCollege};
 	
+	InstitutionType criterion = {UniversityCollege};
 	LinkedList inputList = {};
 	LinkedList outputList = {};
 	int (*compare)(void *, void*);
@@ -59,6 +59,6 @@ void test_institution_select_3(){
 	List_addTail_Expect(&outputList, &institution[2]);
 	
 	
-	TEST_ASSERT_EQUAL(1,Institution_select(&inputList, &outputList, &criterion, isUniversityCollege));
+	TEST_ASSERT_EQUAL(3,Institution_select(&inputList, &outputList, &criterion, isUniversityCollege));
 	
 }

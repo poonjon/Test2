@@ -13,13 +13,13 @@ int Institution_reverse(LinkedList *inputList, LinkedList *outputList){
 	
 	for(count = 0 ; institution != NULL ; count++){
 	
-	Stack_push(&stack, institution);
-	institution = List_removeHead(inputList);
+		Stack_push(&stack, institution);
+		institution = List_removeHead(inputList);
 	}	
 	
 	for(i = 0 ; i<count ; i++){
-	institution = Stack_pop(&stack);
-	List_addTail(outputList, institution);
+		institution = Stack_pop(&stack);
+		List_addTail(outputList, institution);
 	}
 	
 	
@@ -32,23 +32,29 @@ int Institution_select( LinkedList *inputList,
 						int (*compare)(void*, void *)){
 						
 	Institution *institution;
-	int count, i;
+	int count, i=0;
 	
 	institution = List_removeHead(inputList);
-	institution = List_removeHead(inputList);
-	institution = List_removeHead(inputList);
-	Stack_push(&stack, institution);
-	institution = List_removeHead(inputList);
-	institution = Stack_pop(&stack);
-	List_addTail(outputList, institution);
 	
-	
-	if((*compare)((InstitutionType*)criterion , (Institution*)institution) != 1){
-		return 0;
+	for(count = 0 ; institution != NULL ; count++){
+			if((*compare)((Institution*)institution , (InstitutionType*)criterion) == 1){
+				Stack_push(&stack, institution);
+				institution = List_removeHead(inputList);
+				i++;
+		}
+			else {
+				printf("Institute %d not match\n", count);
+				institution = List_removeHead(inputList);
+				}
+	}
+		
+	for(; i != 0 ; i--){
+		institution = Stack_pop(&stack);
+		List_addTail(outputList, institution);
 	}
 	
-	else
-		return 1;
+	return count;
+						
 }
 						
 					
