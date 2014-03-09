@@ -76,3 +76,12 @@ int isUniversityCollege(void *elem1, void *type){
 
 }
 
+int wasEstablishedBefore(void *elem1, void *year){
+	Institution *institution; 
+		
+	if((((Institution*)elem1)->YearEstablished) == *(int *)year){
+		return 1;
+}
+	else
+		return 0;	
+}

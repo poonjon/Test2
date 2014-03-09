@@ -56,8 +56,6 @@ void test_reverse_add_institution_for_3_elements(){
 
 
 
-
-
 void test_select_institute(){
 
  InstitutionType instiType = {UniversityCollege};
@@ -66,7 +64,7 @@ void test_select_institute(){
 
 
 
- UnityAssertEqualNumber((_U_SINT)((1)), (_U_SINT)((isUniversityCollege(&institution, &instiType))), (((void *)0)), (_U_UINT)37, UNITY_DISPLAY_STYLE_INT);
+ UnityAssertEqualNumber((_U_SINT)((1)), (_U_SINT)((isUniversityCollege(&institution, &instiType))), (((void *)0)), (_U_UINT)36, UNITY_DISPLAY_STYLE_INT);
 
 
 
@@ -96,27 +94,27 @@ void test_institution_select_1_reverse_3_elements(){
 
 
 
- List_removeHead_CMockExpectAndReturn(52, &inputList, &institution[0]);
+ List_removeHead_CMockExpectAndReturn(51, &inputList, &institution[0]);
 
- List_removeHead_CMockExpectAndReturn(53, &inputList, &institution[1]);
+ List_removeHead_CMockExpectAndReturn(52, &inputList, &institution[1]);
 
- List_removeHead_CMockExpectAndReturn(54, &inputList, &institution[2]);
+ List_removeHead_CMockExpectAndReturn(53, &inputList, &institution[2]);
 
- Stack_push_CMockExpect(55, &stack, &institution[2]);
+ Stack_push_CMockExpect(54, &stack, &institution[2]);
 
- List_removeHead_CMockExpectAndReturn(56, &inputList, ((void *)0));
-
-
-
- Stack_pop_CMockExpectAndReturn(58, &stack, &institution[2]);
-
- List_addTail_CMockExpect(59, &outputList, &institution[2]);
+ List_removeHead_CMockExpectAndReturn(55, &inputList, ((void *)0));
 
 
 
+ Stack_pop_CMockExpectAndReturn(57, &stack, &institution[2]);
+
+ List_addTail_CMockExpect(58, &outputList, &institution[2]);
 
 
- UnityAssertEqualNumber((_U_SINT)((3)), (_U_SINT)((Institution_select(&inputList, &outputList, &criterion, isUniversityCollege))), (((void *)0)), (_U_UINT)62, UNITY_DISPLAY_STYLE_INT);
+
+
+
+ UnityAssertEqualNumber((_U_SINT)((3)), (_U_SINT)((Institution_select(&inputList, &outputList, &criterion, isUniversityCollege))), (((void *)0)), (_U_UINT)61, UNITY_DISPLAY_STYLE_INT);
 
 
 
@@ -125,6 +123,8 @@ void test_institution_select_1_reverse_3_elements(){
 
 
 void test_institution_select_2_elements_reverse_4_elements(){
+
+
 
  Institution institution[]={ {.type = Unknown},
 
@@ -173,6 +173,28 @@ void test_institution_select_2_elements_reverse_4_elements(){
 
 
  UnityAssertEqualNumber((_U_SINT)((4)), (_U_SINT)((Institution_select(&inputList, &outputList, &criterion, isUniversityCollege))), (((void *)0)), (_U_UINT)90, UNITY_DISPLAY_STYLE_INT);
+
+
+
+}
+
+
+
+void test_year_of_establishment(){
+
+ Institution institution[] = { {.YearEstablished = 1920, .type = UniversityCollege},
+
+          {.YearEstablished = 1980, .type = UniversityCollege},
+
+          {.YearEstablished = 1990, .type = UniversityCollege}};
+
+ int comparedYear = 1980;
+
+ InstitutionType criterion = {UniversityCollege};
+
+
+
+ UnityAssertEqualNumber((_U_SINT)((1)), (_U_SINT)((wasEstablishedBefore(&institution[1], &comparedYear))), (((void *)0)), (_U_UINT)101, UNITY_DISPLAY_STYLE_INT);
 
 
 

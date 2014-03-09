@@ -7,19 +7,22 @@
   :line: 9
   :message: ''
 - :test: test_select_institute
-  :line: 33
+  :line: 32
   :message: ''
 - :test: test_institution_select_1_reverse_3_elements
-  :line: 41
+  :line: 40
   :message: ''
 - :test: test_institution_select_2_elements_reverse_4_elements
-  :line: 66
+  :line: 65
+  :message: ''
+- :test: test_year_of_establishment
+  :line: 94
   :message: ''
 :failures: []
 :ignores: []
 :counts:
-  :total: 4
-  :passed: 4
+  :total: 5
+  :passed: 5
   :failed: 0
   :ignored: 0
 :stdout:

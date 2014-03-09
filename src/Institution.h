@@ -23,5 +23,6 @@ int Institution_select( LinkedList *inputList,
 						void *criterion,
 						int (*compare)(void*, void *));
 
+int wasEstablishedBefore(void *elem1, void *year);
 						
 #endif
