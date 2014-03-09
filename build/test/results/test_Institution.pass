@@ -4,31 +4,34 @@
   :file: test_Institution.c
 :successes:
 - :test: test_reverse_add_institution_for_3_elements
-  :line: 9
+  :line: 10
   :message: ''
 - :test: test_select_institute
-  :line: 32
+  :line: 33
   :message: ''
 - :test: test_institution_select_1_reverse_3_elements
-  :line: 40
+  :line: 41
   :message: ''
 - :test: test_institution_select_2_elements_reverse_4_elements
-  :line: 65
+  :line: 66
   :message: ''
 - :test: test_year_of_establishment
-  :line: 94
+  :line: 95
   :message: ''
 - :test: test_institution_select_year_select_1_reverse_3_elements
-  :line: 105
+  :line: 106
   :message: ''
 - :test: test_institution_select_year_select_2_reverse_3_elements
   :line: 129
   :message: ''
+- :test: test_institution_select_year_select_1_reverse_3_elements_with_exception
+  :line: 155
+  :message: ''
 :failures: []
 :ignores: []
 :counts:
-  :total: 7
-  :passed: 7
+  :total: 8
+  :passed: 8
   :failed: 0
   :ignored: 0
 :stdout:

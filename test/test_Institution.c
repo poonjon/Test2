@@ -1,4 +1,5 @@
 #include "unity.h"
+#include "CException.h"
 #include "mock_LinkedList.h"
 #include "mock_Stack.h"
 #include "Institution.h"
@@ -106,7 +107,7 @@ void test_institution_select_year_select_1_reverse_3_elements(){
 	Institution institution[]={ {.YearEstablished = 1920, .type = UniversityCollege},
 								{.YearEstablished = 1980, .type = UniversityCollege},
 								{.YearEstablished = 1990, .type = UniversityCollege}};
-	
+	int catchError;
 	int criterion = 1980;
 	LinkedList inputList = {};
 	LinkedList outputList = {};
@@ -120,7 +121,6 @@ void test_institution_select_year_select_1_reverse_3_elements(){
 	
 	Stack_pop_ExpectAndReturn(&stack, &institution[1]);
 	List_addTail_Expect(&outputList, &institution[1]);
-	
 	
 	TEST_ASSERT_EQUAL(3,Institution_select(&inputList, &outputList, &criterion, wasEstablishedBefore));
 	
@@ -151,3 +151,27 @@ void test_institution_select_year_select_2_reverse_3_elements(){
 	TEST_ASSERT_EQUAL(3,Institution_select(&inputList, &outputList, &criterion, wasEstablishedBefore));
 	
 }
+
+void test_institution_select_year_select_1_reverse_3_elements_with_exception(){
+	Institution institution[]={ {.YearEstablished = 2015, .type = UniversityCollege},
+								{.YearEstablished = 1980, .type = UniversityCollege},
+								{.YearEstablished = 1990, .type = UniversityCollege}};
+	int catchError;
+	int criterion = 1980;
+	LinkedList inputList = {};
+	LinkedList outputList = {};
+	int (*compare)(void *, void*);
+	
+
+	List_removeHead_ExpectAndReturn(&inputList, &institution[0]);
+
+	Try{
+		TEST_ASSERT_EQUAL(3,Institution_select(&inputList, &outputList, &criterion, wasEstablishedBefore));
+	}Catch(catchError){
+		TEST_ASSERT_EQUAL(ERR_INVALID_YEAR, catchError);
+	}
+	
+}
+	
+
+	

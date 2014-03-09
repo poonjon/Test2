@@ -3,6 +3,11 @@
 
 extern Stack stack; 
 
+typedef enum {
+				NO_ERROR,
+				ERR_INVALID_YEAR
+			} ExceptionError;
+
 typedef enum{Unknown, University, UniversityCollege, College}InstitutionType;
 
 typedef struct Institution_t{

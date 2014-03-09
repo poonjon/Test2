@@ -1,5 +1,6 @@
 #include "Stack.h"
 #include <stdio.h>
+#include "CException.h"
 #include "LinkedList.h"
 #include "Institution.h"
 
@@ -62,8 +63,6 @@ int Institution_select( LinkedList *inputList,
 						
 }
 						
-					
-
 int isUniversityCollege(void *elem1, void *type){
 	
 	//to compare type from elem1 to type from InstitutionType
@@ -78,10 +77,16 @@ int isUniversityCollege(void *elem1, void *type){
 
 int wasEstablishedBefore(void *elem1, void *year){
 	Institution *institution; 
-		
-	if((((Institution*)elem1)->YearEstablished) == *(int *)year){
-		return 1;
-}
-	else
-		return 0;	
+	
+	if((((Institution*)elem1)->YearEstablished) > 2014){
+		Throw(ERR_INVALID_YEAR);
+	}	
+	
+	else{
+		if((((Institution*)elem1)->YearEstablished) == *(int *)year){
+			return 1;
+	}
+		else
+			return 0;	
+	}
 }

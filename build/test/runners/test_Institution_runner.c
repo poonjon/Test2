@@ -47,6 +47,7 @@ extern void test_institution_select_2_elements_reverse_4_elements(void);
 extern void test_year_of_establishment(void);
 extern void test_institution_select_year_select_1_reverse_3_elements(void);
 extern void test_institution_select_year_select_2_reverse_3_elements(void);
+extern void test_institution_select_year_select_1_reverse_3_elements_with_exception(void);
 
 
 //=======Mock Management=====
@@ -85,13 +86,14 @@ int main(void)
 {
   Unity.TestFile = "test_Institution.c";
   UnityBegin();
-  RUN_TEST(test_reverse_add_institution_for_3_elements, 9);
-  RUN_TEST(test_select_institute, 32);
-  RUN_TEST(test_institution_select_1_reverse_3_elements, 40);
-  RUN_TEST(test_institution_select_2_elements_reverse_4_elements, 65);
-  RUN_TEST(test_year_of_establishment, 94);
-  RUN_TEST(test_institution_select_year_select_1_reverse_3_elements, 105);
+  RUN_TEST(test_reverse_add_institution_for_3_elements, 10);
+  RUN_TEST(test_select_institute, 33);
+  RUN_TEST(test_institution_select_1_reverse_3_elements, 41);
+  RUN_TEST(test_institution_select_2_elements_reverse_4_elements, 66);
+  RUN_TEST(test_year_of_establishment, 95);
+  RUN_TEST(test_institution_select_year_select_1_reverse_3_elements, 106);
   RUN_TEST(test_institution_select_year_select_2_reverse_3_elements, 129);
+  RUN_TEST(test_institution_select_year_select_1_reverse_3_elements_with_exception, 155);
 
   return (UnityEnd());
 }
